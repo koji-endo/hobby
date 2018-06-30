@@ -1,0 +1,18 @@
+begin_potential_array
+begin_header
+    mode -1
+    symmetry cylindrical
+     max_voltage 500000
+    nz 1
+    mirror_x 0
+    mirror_y 1
+    mirror_z 0
+    field_type electrostatic
+    ng 100
+    dx_mm 0.1
+    dy_mm 0.1
+    dz_mm 0.1
+    fast_adjustable 0
+    data_format x y z is_electrode potential
+end_header
+begin_points
