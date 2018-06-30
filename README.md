@@ -1,2 +1,0 @@
-# hobby
-for my hobbies
