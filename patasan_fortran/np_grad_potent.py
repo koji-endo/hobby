@@ -90,9 +90,6 @@ class grad_potent():
 		tmp_tmp_y=np.arange(cal_y_begin,cal_y_end+1,dtype="int32")
 		tmp_y=np.outer(tmp_tmp_y,np.ones(cal_x_end-cal_x_begin+1,dtype="int32"))
 		tmp_y=tmp_y.reshape(-1,)
-		print("x",self.x.dtype)
-		print("y",self.y.dtype)
-		print("v",self.v.dtype)
 		self.x=np.hstack((self.x,tmp_x))
 		self.y=np.hstack((self.y,tmp_y))
 		self.v=np.hstack((self.v,tmp_v))
@@ -146,28 +143,25 @@ class grad_potent():
 			0
 		)
 	def file_output(self):
-		f=open("test.patxt",'w')
-		f.write('begin_potential_array\n')
-		f.write('begin_header\n')
-		f.write('    mode -1\n')
-		f.write('    symmetry cylindrical\n')
-		f.write('     max_voltage 500000\n')
-		f.write('    nz 1\n')
-		f.write('    mirror_x 0\n')
-		f.write('    mirror_y 1\n')
-		f.write('    mirror_z 0\n')
-		f.write('    field_type electrostatic\n')
-		f.write('    ng 100\n')
-		f.write('    dx_mm 0.1\n')
-		f.write('    dy_mm 0.1\n')
-		f.write('    dz_mm 0.1\n')
-		f.write('    fast_adjustable 0\n')
-		f.write('    data_format x y z is_electrode potential\n')
-		f.write('end_header\n')
-		f.write('begin_points\n')
-		f.close()
 
-		header="begin_potential_array\nbegin_header\n"
+		header="""begin_potential_array
+begin_header
+	mode -1
+	symmetry cylindrical
+	max_voltage 500000
+	nz 1
+	mirror_x 0
+	mirror_y 1
+	mirror_z 0
+	field_type electrostatic
+	ng 100
+	dx_mm 0.1
+	dy_mm 0.1
+	fast_adjustable 0
+	data_format x y z is_electrode potential
+end_header
+begin_points"""
+		footer="end_points\nend_potential_array"
 		xlen=len(self.x)
 		n1=np.zeros(xlen,dtype="int32")
 		n2=np.ones(xlen,dtype="int32")
@@ -175,7 +169,31 @@ class grad_potent():
 		result=np.vstack((self.x,self.y,n1,n2,self.v))
 		print(self.x)
 		print (result)
-		np.savetxt("result.txt",result.T,fmt="%.0f",header=header)
+		np.savetxt("result.txt",result.T,fmt="%.0f",header=header,comments="",footer=footer)
+		# f=open("result.patxt",'w')
+		# # f.seek(0,0)
+		# g=open("result.txt")
+		# data=g.read()
+		# f.write('begin_potential_array\n')
+		# f.write('begin_header\n')
+		# f.write('    mode -1\n')
+		# f.write('    symmetry cylindrical\n')
+		# f.write('     max_voltage 500000\n')
+		# f.write('    nz 1\n')
+		# f.write('    mirror_x 0\n')
+		# f.write('    mirror_y 1\n')
+		# f.write('    mirror_z 0\n')
+		# f.write('    field_type electrostatic\n')
+		# f.write('    ng 100\n')
+		# f.write('    dx_mm 0.1\n')
+		# f.write('    dy_mm 0.1\n')
+		# f.write('    dz_mm 0.1\n')
+		# f.write('    fast_adjustable 0\n')
+		# f.write('    data_format x y z is_electrode potential\n')
+		# f.write('end_header\n')
+		# f.write('begin_points\n')
+		# f.write(data)
+		# f.close()
 
 	def main(self):
 		self.make_sample_holder()
