@@ -4,10 +4,15 @@
 #この最初の2行以外のコメントアウトは特に意味がありません。
 #ﾌﾟﾛｸﾞﾗﾑ内でアンダースコアを使っているのは僕の癖で特にpythonとしては意味はありません。
 
-#grad_potent.py
+#np_grad_potent.py
+#ライブラリをインポートしています。
 import numpy as np
 import sys
 from datetime import datetime
+#クラスは便利なんですが、ちょっととっつきにくい概念です。
+# 関数主体でプログラムを書きたくて、引数に大量の変数を代入したくなかったのでクラスを使いました。
+# グローバル変数みたいなものを使うために使っています。
+		
 class grad_potent():
 	# プログラム全体で使いたい変数をここで定義します。
 	# 一部の変数は___init___内で定義しています。
@@ -20,12 +25,12 @@ class grad_potent():
 	a_list=[]
 	deltaV_list=[]
 	step_list=[]
+	# この関数はE=grad_pitent()としたときに自動実行されます。
+	# コンストラクタと言ってクラスの初期化時に実行されるものです。
+
 	def __init__(self): 
-		# この関数はE=grad_pitent()としたときに自動実行されます。
-		# コンストラクタと言ってクラスの初期化時に実行されるものです。
-		# 関数主体でプログラムを書きたくて、引数に大量の変数を代入したくなかったのでクラスを使いました。
-		# グローバル変数として使っています。
-		
+
+	
 		# csv読み込みモードかコマンドライン入力モードかの判定
 		# python np_grad_potent.pyでコンパイルした時は
 		# sys.argv=["np_grad_potent.py"]
@@ -43,11 +48,11 @@ class grad_potent():
 			for line in open(file_name,'r'):
 				li=line
 				# "#"が文頭にある行は飛ばすように処理します。
-				if li[0]!="#":
+				if li[0]!="#": #!=はnot equalです。
 					#改行記号を取って、スペースで区切って配列に入れます。
 					li=li.rstrip("\n")
 					li=li.split(" ")
-					if index==0 :
+					if index==0 : #1行目だった場合(コメントアウト除く)
 						self.wall=float(li[0])
 						self.phia=float(li[1])
 						self.phib=float(li[3])
