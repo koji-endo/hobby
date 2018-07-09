@@ -30,8 +30,15 @@ vector<vector<string>> csv_read(string filename){
     }
     return returnee;
 }
+void print_vector(vector<vector<string>> lala){
+    each(begin(lala), end(lala), [&](vector<string> la){ each(begin(la), end(la), [&](string i) {
+cout<<i<<endl;
+}
+}
+}
+
 int main(){
     vector<vector<string>> lala;
     lala=csv_read("connect.txt");
-    
+    print_vector(lala);
 } 
