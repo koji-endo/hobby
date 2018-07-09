@@ -1,4 +1,4 @@
-//g++ -std=c++11 -o csv_read_win csv_read.cpp 2> error.txt
+#include "sei0530.hpp"
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -7,7 +7,7 @@
 #include <algorithm>
 using namespace std;
 
-vector<string> split(string& input, char delimiter)
+vector<string> sei0530::split(string& input, char delimiter)
 {
     istringstream stream(input);
     string field;
@@ -17,7 +17,7 @@ vector<string> split(string& input, char delimiter)
     }
     return result;
 }
-vector<vector<string>> csv_read(string filename){
+vector<vector<string>> sei0530::csv_read(string filename){
     ifstream ifs(filename);
     string line;
     vector<vector<string>> returnee;
@@ -31,7 +31,7 @@ vector<vector<string>> csv_read(string filename){
     }
     return returnee;
 }
-void print_vector(vector<vector<string>> lala){
+void sei0530::print_vector(vector<vector<string>> lala){
     for_each(begin(lala), end(lala), 
         [&](vector<string> la){ 
             for_each(begin(la), end(la), 
@@ -43,9 +43,3 @@ void print_vector(vector<vector<string>> lala){
         }
     );
 }
-
-int main(){
-    vector<vector<string>> lala;
-    lala=csv_read("connect_sei0530.txt");
-    print_vector(lala);
-} 
