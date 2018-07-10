@@ -2,27 +2,24 @@
 % See also http://www.bionik.tu-berlin.de/user/niko
 function xmin=cmaes
 % Set dimension, fitness fct, stop criteria, start values...
-N=10; strfitnessfct = ’cigar’;
-maxeval = 300*(N+2)Ã 2; stopfitness = 1e-10; % stop criteria
+N=10; strfitnessfct = 'cigar';
+maxeval = 300*(N+2)^ 2; stopfitness = 1e-10; % stop criteria
 xmeanw = ones(N, 1); % object parameter start point (weighted mean)
 sigma = 1.0; minsigma = 1e-15; % step size, minimal step size
 % Parameter setting: selection,
 lambda = 4 + floor(3*log(N)); mu = floor(lambda/2);
-arweights = log((lambda+1)/2) - log(1:mu)’; % for recombination
+arweights = log((lambda+1)/2) - log(1:mu)'; % for recombination
 % parameter setting: adaptation
-cc = 4/(N+4); ccov = 2/(N+2Ã 0.5)Ã 2;
+cc = 4/(N+4); ccov = 2/(N+2^ 0.5)^ 2;
 cs = 4/(N+4); damp = 1/cs + 1;
 % Initialize dynamic strategy parameters and constants
 B = eye(N); D = eye(N); BD = B*D; C = BD*transpose(BD);
 pc = zeros(N,1); ps = zeros(N,1);
 cw = sum(arweights)/norm(arweights);
-chiN = NÃ 0.5*(1-1/(4*N)+1/(21*NÃ 2));
+chiN = N^ 0.5*(1-1/(4*N)+1/(21*N^ 2));
 % Generation loop
 counteval = 0; arfitness(1) = 2*abs(stopfitness)+1;
 while arfitness(1) > stopfitness & counteval < maxeval
-Evolutionary Computation Volume 9, Number 2 191
-N. Hansen and A. Ostermeier
-% Generate and evaluate lambda offspring
 for k=1:lambda
 % repeat the next two lines until arx(:,k) is feasible
 arz(:,k) = randn(N,1);
@@ -61,7 +58,7 @@ if sigma*min(diag(D)) < minsigma ...
 sigma = 1.4*sigma;
 end
 end % while, end generation loop
-disp([num2str(counteval) ’: ’ num2str(arfitness(1))]);
+disp([num2str(counteval) ': ' num2str(arfitness(1))]);
 xmin = arx(:, arindex(1)); % return best point of last generation
 function f=cigar(x)
-f = x(1)Ã 2 + 1e6*sum(x(2:end).Ã 2);
+f = x(1)^ 2 + 1e6*sum(x(2:end).^ 2);
