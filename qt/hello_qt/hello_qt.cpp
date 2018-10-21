@@ -1,9 +1,8 @@
-#include <qapplication.h>
-#include <qlabel.h>
-int main(int argc, char* *argv[]){
+#include <QApplication>
+#include <QLabel>
+int main(int argc, char *argv[]){
     QApplication app(argc,argv);
-    Qlabel *label= new QLabel("Hello QT!", 0);
-    app.setMainWidget(label);
+    QLabel *label= new QLabel("Hello QT!", 0);
     label->show();
     return app.exec();
 }
